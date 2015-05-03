@@ -5,7 +5,9 @@
   "main": "shanghai.js",
   "dependencies": {},
   "devDependencies": {
+    "browserify": "^10.0.0",
     "coffee-script": "^1.9.2",
+    "coffeeify": "^1.1.0",
     "electron-prebuilt": "^0.25.2",
     "jquery": "^2.1.4",
     "stylus": "^0.51.1"
