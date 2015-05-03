@@ -2,7 +2,7 @@
   "name": "shanghai",
   "version": "0.0.1",
   "description": "A remake of the Mac OS 7 Mahjong game of the same name",
-  "main": "shanghai.js",
+  "main": "build/server.js",
   "dependencies": {},
   "devDependencies": {
     "browserify": "^10.0.0",
@@ -10,7 +10,8 @@
     "coffeeify": "^1.1.0",
     "electron-prebuilt": "^0.25.2",
     "jquery": "^2.1.4",
-    "stylus": "^0.51.1"
+    "stylus": "^0.51.1",
+    "uglify-js": "^2.4.20"
   },
   "repository": {
     "type": "git",
