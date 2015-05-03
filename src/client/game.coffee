@@ -8,30 +8,17 @@ class Game
   addTile: (tile) ->
     tile.render()
     @tiles.push tile
+    tile.on 'click', => @onTileClick tile
 
 
-  isRemovable: (testTile) ->
-    openOnLeft = yes
-    openOnRight = yes
-
-    for tile in @tiles
-      return no if tile.isCovering testTile
-      continue unless tile.isAdjacent testTile
-
-      openOnLeft = no if tile.x - testTile.x is -1
-      openOnRight = no if tile.x - testTile.x is 1
-
-    openOnLeft or openOnRight
-
-
-  clickTile: (tile) ->
+  onTileClick: (tile) ->
 
     if @selected is tile
       @selected.deselect()
       @selected = null
       return
 
-    unless @isRemovable tile
+    unless tile.isRemovable()
       tile.select()
       setTimeout tile.deselect, 150
       return

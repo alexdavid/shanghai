@@ -1,7 +1,8 @@
 $ = require 'jquery'
+{EventEmitter} = require 'events'
 
 
-class Tile
+class Tile extends EventEmitter
 
   @TYPES = [
     'a1', 'a2', 'a3', 'a4', 'a5', 'a7', 'a8', 'a9'
@@ -25,7 +26,7 @@ class Tile
       zIndex: @z * 100 - @x * 2 + @y * 2 + 100
       backgroundImage: "url(../tiles/#{@type}.png)"
 
-    @el.on 'click', => @game.clickTile this
+    @el.on 'click', => @emit 'click'
 
 
   isAdjacent: (tile) ->
@@ -37,6 +38,20 @@ class Tile
   isCovering: (tile) ->
     return no if @z <= tile.z
     Math.abs(tile.y - @y) < 1 and Math.abs(tile.x - @x) < 1
+
+
+  isRemovable: ->
+    openOnLeft = yes
+    openOnRight = yes
+
+    for tile in @game.tiles
+      return no if tile.isCovering this
+      continue unless tile.isAdjacent this
+
+      openOnLeft = no if tile.x - @x is -1
+      openOnRight = no if tile.x - @x is 1
+
+    openOnLeft or openOnRight
 
 
   remove: ->
