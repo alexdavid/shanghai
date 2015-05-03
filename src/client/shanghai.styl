@@ -1,0 +1,48 @@
+body
+  background: #118714
+  margin: 0
+  padding: 20px 32px
+
+#game
+  position: relative
+
+
+.tile
+  border-top: 1px solid #000
+  border-right: 1px solid #000
+  border-left: 1px solid #8e8471
+  border-bottom: 1px solid #8e8471
+  position: absolute
+  background: #f9f5d5
+  background-size: 100%
+  box-sizing: border-box
+
+  &:before
+    content: ""
+    background: #f9f5d5
+    position: absolute
+    width: 11px
+    height: 100%
+    right: 100%
+    margin-right: 1px
+    top: 0
+    border-top: 1px solid #000
+    border-left: 1px solid #000
+    border-bottom: 1px solid #8e8471
+    transform: skew(0deg, -46deg) translate(0, 5.8px)
+
+  &:after
+    content: ""
+    box-sizing: border-box
+    background: #c9c1a5
+    position: absolute
+    top: 100%
+    left: 0
+    height: 12px
+    width: 102%
+    border-bottom: 1px solid #000
+    border-right: 1px solid #000
+    transform: skew(-44deg, 0deg) translate(-5.1px, 1px)
+
+  &.selected
+    -webkit-filter: brightness(0.8)
