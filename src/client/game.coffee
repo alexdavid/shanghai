@@ -1,3 +1,6 @@
+Tile = require './tile.coffee'
+
+
 class Game
 
   constructor: ->
@@ -6,7 +9,6 @@ class Game
 
 
   addTile: (tile) ->
-    tile.render()
     @tiles.push tile
     tile.on 'click', => @onTileClick tile
 
@@ -38,8 +40,35 @@ class Game
       @selected.select()
 
 
-  render: ->
-    tile.render() for tile in @tiles
+  getPossibleRandomTileOrder: ->
+    results = []
+    toBeAdded = @tiles[..].sort -> Math.random() - .5
+
+    canAdd = (tile) =>
+      currentlyBelowCount = results.filter((t) -> tile.isCovering t).length
+      needsBelowCount = @tiles.filter((t) -> tile.isCovering t).length
+      currentlyBelowCount is needsBelowCount
+
+    while tile = toBeAdded.shift()
+      until canAdd(tile)
+        toBeAdded.push tile
+        tile = toBeAdded.shift()
+      results.push tile
+    results
+
+
+  start: ->
+    waitingOnAdd = null
+    for tile, i in @getPossibleRandomTileOrder()
+
+      if waitingOnAdd?
+        type = waitingOnAdd
+        waitingOnAdd = null
+      else
+        type = waitingOnAdd = Tile.getRandomTileType()
+
+      tile.setType type
+      setTimeout tile.render, i * 15
 
 
 module.exports = Game

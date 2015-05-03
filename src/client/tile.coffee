@@ -4,7 +4,7 @@ $ = require 'jquery'
 
 class Tile extends EventEmitter
 
-  @TYPES = [
+  TYPES = [
     'a1', 'a2', 'a3', 'a4', 'a5', 'a7', 'a8', 'a9'
     'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9'
     'c', 'c1', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9'
@@ -12,19 +12,22 @@ class Tile extends EventEmitter
     'e', 'f', 'n', 'p', 's', 'w'
   ]
 
-  @PX_WIDTH = 50
-  @PX_HEGIHT = 62
+  PX_WIDTH = 50
+  PX_HEGIHT = 62
+
+
+  @getRandomTileType: ->
+    TYPES[Math.round Math.random() * (TYPES.length - 1)]
+
 
   constructor: (@x, @y, @z, @game) ->
-    @type = Tile.TYPES[Math.round Math.random() * (Tile.TYPES.length - 1)]
     @el = $ '<div>', class: 'tile'
     @el.css
-      width: Tile.PX_WIDTH
-      height: Tile.PX_HEGIHT
-      left: @x * Tile.PX_WIDTH + 12 * @z
-      top: @y * Tile.PX_HEGIHT - 12 * @z
+      width: PX_WIDTH
+      height: PX_HEGIHT
+      left: @x * PX_WIDTH + 12 * @z
+      top: @y * PX_HEGIHT - 12 * @z
       zIndex: @z * 100 - @x * 2 + @y * 2 + 100
-      backgroundImage: "url(../tiles/#{@type}.png)"
 
     @el.on 'click', => @emit 'click'
 
@@ -66,7 +69,11 @@ class Tile extends EventEmitter
     @el.addClass 'selected'
 
 
-  render: ->
+  setType: (@type) ->
+    @el.css backgroundImage: "url(../tiles/#{@type}.png)"
+
+
+  render: =>
     @el.appendTo '#game'
 
 
