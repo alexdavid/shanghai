@@ -6,6 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "asar": "^0.6.1",
+    "brfs": "^1.4.0",
     "browserify": "^10.0.0",
     "coffee-script": "^1.9.2",
     "coffeeify": "^1.1.0",

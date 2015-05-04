@@ -11,7 +11,7 @@ mkdir dist
 
 cp package.json build
 cp -r tiles build
-browserify -t coffeeify src/client/shanghai.coffee | uglifyjs -m > build/client.js
+browserify -t coffeeify -t brfs src/client/shanghai.coffee | uglifyjs -m > build/client.js
 coffee -p -c src/server.coffee | uglifyjs -m > build/server.js
 stylus -o build -c src/client/shanghai.styl
 cp src/client/shanghai.html build/shanghai.html

@@ -1,23 +1,23 @@
 $ = require 'jquery'
+fs = require 'fs'
 {EventEmitter} = require 'events'
 
 
 class Tile extends EventEmitter
 
-  TYPES = [
-    'a1', 'a2', 'a3', 'a4', 'a5', 'a7', 'a8', 'a9'
-    'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9'
-    'c', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9'
-    'd1'
-    'e', 'f', 'n', 'p', 's', 'w'
-  ]
-
+  SEASONS = ['winter', 'summer']
+  TYPES = fs.readdirSync 'tiles'
+            .filter (file) -> file[0] isnt '.'
+            .map (type) -> type.replace '.png', ''
   PX_WIDTH = 50
   PX_HEGIHT = 62
 
 
   @getRandomTileType: ->
-    TYPES[Math.round Math.random() * (TYPES.length - 1)]
+    loop
+      type = TYPES[Math.round Math.random() * (TYPES.length - 1)]
+      break unless type in SEASONS
+    type
 
 
   constructor: (@x, @y, @z, @game) ->
@@ -72,7 +72,7 @@ class Tile extends EventEmitter
 
 
   isSeason: ->
-    @type is 'summer' or @type is 'winter'
+    @type in SEASONS
 
 
   remove: ->
