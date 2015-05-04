@@ -17,30 +17,19 @@ class Game
 
 
   onTileClick: (tile) ->
-
     if @selected is tile
       @selected.deselect()
       @selected = null
       return
 
-    unless tile.isRemovable()
-      tile.select()
-      setTimeout tile.deselect, 150
-      return
+    return tile.flicker() unless tile.isRemovable()
 
-    if @selected
-      if @selected.type is tile.type
-        tile.remove()
-        @selected.remove()
-        @tiles = @tiles.filter (t) => t isnt tile and t isnt @selected
-        @selected = null
-      else
-        @selected.deselect()
-        @selected = tile
-        @selected.select()
+    if @selected?.isMatch tile
+      @removeTile tile
+      @removeTile @selected
+      @selected = null
     else
-      @selected = tile
-      @selected.select()
+      @selectTile tile
 
 
   getPossibleRandomTileOrder: ->
@@ -60,16 +49,30 @@ class Game
     results
 
 
+  removeTile: (tile) ->
+    @tiles = @tiles.filter (t) -> t isnt tile
+    tile.remove()
+
+
+  selectTile: (tile) ->
+    @selected?.deselect()
+    @selected = tile
+    @selected.select()
+
+
   start: ->
-    waitingOnAdd = null
+    seasonAddedIndex = Math.floor Math.random() * @tiles.length
+    waitingOnAdd = []
     for tile, i in @getPossibleRandomTileOrder()
 
-      if waitingOnAdd?
-        type = waitingOnAdd
-        waitingOnAdd = null
-      else
-        type = waitingOnAdd = Tile.getRandomTileType()
+      if i is seasonAddedIndex
+        waitingOnAdd.push 'winter', 'summer'
 
+      if waitingOnAdd.length is 0
+        pair = Tile.getRandomTileType()
+        waitingOnAdd.push pair, pair
+
+      type = waitingOnAdd.pop()
       tile.setType type
       setTimeout tile.render, i * 15
 

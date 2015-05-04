@@ -8,7 +8,7 @@ class Tile extends EventEmitter
     'a1', 'a2', 'a3', 'a4', 'a5', 'a7', 'a8', 'a9'
     'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9'
     'c', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9'
-    'd1', 'd4'
+    'd1'
     'e', 'f', 'n', 'p', 's', 'w'
   ]
 
@@ -32,6 +32,15 @@ class Tile extends EventEmitter
     @el.on 'click', => @emit 'click'
 
 
+  deselect: =>
+    @el.removeClass 'selected'
+
+
+  flicker: ->
+    @select()
+    setTimeout @deselect, 150
+
+
   isAdjacent: (tile) ->
     return no unless Math.abs(tile.y - @y) < 1
     return no unless tile.z is @z
@@ -41,6 +50,11 @@ class Tile extends EventEmitter
   isCovering: (tile) ->
     return no if @z <= tile.z
     Math.abs(tile.y - @y) < 1 and Math.abs(tile.x - @x) < 1
+
+
+  isMatch: (tile) ->
+    return yes if @isSeason() and tile.isSeason()
+    @type is tile.type
 
 
   isRemovable: ->
@@ -57,12 +71,16 @@ class Tile extends EventEmitter
     openOnLeft or openOnRight
 
 
+  isSeason: ->
+    @type is 'summer' or @type is 'winter'
+
+
   remove: ->
     @el.remove()
 
 
-  deselect: =>
-    @el.removeClass 'selected'
+  render: =>
+    @el.appendTo @game.el
 
 
   select: =>
@@ -72,9 +90,6 @@ class Tile extends EventEmitter
   setType: (@type) ->
     @el.css backgroundImage: "url(./tiles/#{@type}.png)"
 
-
-  render: =>
-    @el.appendTo @game.el
 
 
 module.exports = Tile
