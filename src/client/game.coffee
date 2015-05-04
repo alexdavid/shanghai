@@ -1,9 +1,12 @@
+$ = require 'jquery'
 Tile = require './tile.coffee'
 
 
 class Game
 
   constructor: ->
+    @el = $ '<div>', class: 'game'
+    @el.appendTo 'body'
     @tiles = []
     @selected = null
 

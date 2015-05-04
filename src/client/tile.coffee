@@ -74,7 +74,7 @@ class Tile extends EventEmitter
 
 
   render: =>
-    @el.appendTo '#game'
+    @el.appendTo @game.el
 
 
 module.exports = Tile

@@ -1,4 +1,7 @@
+$ = require 'jquery'
 defaultLayout = require './layouts/default.coffee'
 
-game = defaultLayout.createGameFromLayout()
-game.start()
+$('#new-game').on 'click', ->
+  $('.game').remove()
+  game = defaultLayout.createGameFromLayout()
+  game.start()

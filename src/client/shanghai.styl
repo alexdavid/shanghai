@@ -3,7 +3,14 @@ body
   margin: 0
   padding: 20px 32px
 
-#game
+
+#new-game
+  position: absolute
+  top: 20px
+  right: 20px
+
+
+.game
   position: relative
 
 
@@ -46,3 +53,35 @@ body
 
   &.selected
     -webkit-filter: brightness(0.8)
+
+
+.shadow
+  position: relative
+  opacity: 0.4
+
+
+.tile-shadow
+  position: absolute
+  pointer-events: none
+  background: #000
+
+  &:before
+    content: ""
+    position: absolute
+    width: 15px
+    height: 100%
+    left: 100%
+    bottom: -24px
+    margin-left: -12px
+    background: inherit
+
+  &:after
+    content: ""
+    background: inherit
+    position: absolute
+    top: 100%
+    margin-top: 12px
+    left: 0
+    height: 12px
+    width: 100%
+    transform: skew(44deg, 0deg) translate(-5.1px, 0px)
