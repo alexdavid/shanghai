@@ -70,7 +70,7 @@ class Tile extends EventEmitter
 
 
   setType: (@type) ->
-    @el.css backgroundImage: "url(../tiles/#{@type}.png)"
+    @el.css backgroundImage: "url(./tiles/#{@type}.png)"
 
 
   render: =>

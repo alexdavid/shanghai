@@ -2,9 +2,10 @@
   "name": "shanghai",
   "version": "0.0.1",
   "description": "A remake of the Mac OS 7 Mahjong game of the same name",
-  "main": "build/server.js",
+  "main": "server.js",
   "dependencies": {},
   "devDependencies": {
+    "asar": "^0.6.1",
     "browserify": "^10.0.0",
     "coffee-script": "^1.9.2",
     "coffeeify": "^1.1.0",
