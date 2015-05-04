@@ -74,7 +74,7 @@ class Game
 
       type = waitingOnAdd.pop()
       tile.setType type
-      setTimeout tile.render, i * 15
+      setTimeout tile.render, i * 10
 
 
 module.exports = Game
