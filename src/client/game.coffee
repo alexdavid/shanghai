@@ -66,7 +66,7 @@ class Game
     for tile, i in @getPossibleRandomTileOrder()
 
       if i is seasonAddedIndex
-        waitingOnAdd.push 'winter', 'summer'
+        waitingOnAdd.push 'winter', 'summer', 'spring', 'autumn'
 
       if waitingOnAdd.length is 0
         pair = Tile.getRandomTileType()

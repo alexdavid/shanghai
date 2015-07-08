@@ -5,7 +5,7 @@ fs = require 'fs'
 
 class Tile extends EventEmitter
 
-  SEASONS = ['winter', 'summer']
+  SEASONS = ['winter', 'summer', 'spring', 'autumn']
   TYPES = fs.readdirSync 'tiles'
             .filter (file) -> file[0] isnt '.'
             .map (type) -> type.replace '.png', ''
